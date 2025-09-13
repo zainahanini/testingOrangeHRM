@@ -1,4 +1,5 @@
-/// <reference types="cypress" />
+
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -35,3 +36,25 @@
 //     }
 //   }
 // }
+import LoginPage from "./pages/login-page.js";
+
+
+declare global {
+    namespace Cypress {
+        interface Chainable {
+            login(username: string, password: string): Chainable<void>
+        }
+    }
+}
+
+Cypress.Commands.add('login', (username: string, password: string) => {
+  //  LoginPage.visit();
+  //  LoginPage.isLoaded();
+    LoginPage.typeUsername(username);
+    LoginPage.typePassword(password);
+    LoginPage.submit();
+}
+
+
+
+)
