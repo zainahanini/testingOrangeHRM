@@ -37,24 +37,33 @@
 //   }
 // }
 import LoginPage from "./pages/login-page.js";
+import { CreateUserRequest } from "../interfaces/users";
+import { CreateUserResponse } from "../interfaces/users";
 
 
 declare global {
     namespace Cypress {
         interface Chainable {
             login(username: string, password: string): Chainable<void>
+            apiRequest(method: string, url: string, body?: any): Chainable<any>
         }
     }
 }
 
 Cypress.Commands.add('login', (username: string, password: string) => {
-  //  LoginPage.visit();
-  //  LoginPage.isLoaded();
+    //  LoginPage.visit();
+    //  LoginPage.isLoaded();
     LoginPage.typeUsername(username);
     LoginPage.typePassword(password);
     LoginPage.submit();
 }
-
-
-
 )
+
+Cypress.Commands.add('apiRequest', (method: string, url: string, body?: any) => {
+    return cy.request({ method, url, body, 
+        headers: { 
+            "Content-Type": "application/json",
+            "x-api-key": "reqres-free-v1"   
+        } 
+    });
+});
