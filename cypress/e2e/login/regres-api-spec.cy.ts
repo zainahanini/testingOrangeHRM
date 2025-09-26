@@ -14,6 +14,8 @@ describe('Get all list of users', () => {
       expect(res.body.total_pages).to.eq(2);
 
       expect(res.body.data).to.have.length(6);
+      cy.log("Response body: " + JSON.stringify(res.body));
+   
     });
   });
 

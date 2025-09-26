@@ -36,9 +36,9 @@
 //     }
 //   }
 // }
-import LoginPage from "./pages/login-page.js";
-import { CreateUserRequest } from "../interfaces/users";
-import { CreateUserResponse } from "../interfaces/users";
+import LoginPage from "../support/pages/login-page.js";
+import { CreateUserRequest } from "../interfaces/users.js";
+import { CreateUserResponse } from "../interfaces/users.js";
 
 
 declare global {
