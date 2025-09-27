@@ -10,15 +10,29 @@ beforeEach(() => {
 });
 
 describe("Add new employee on OrangeHRM", () => {
-    it("TC01: Should add a new employee successfully", () => {
+    it("TC11: Should add a new employee successfully", () => {
         cy.get("@users").then((users: any) => {
             cy.login(users.valid.username, users.valid.password);
 
             cy.get("@employee").then((employee: any) => {
-                cy.addEmployee(employee.firstName, employee.middleName, employee.lastName,employee.empId);
+                cy.addEmployee(employee.firstName, employee.middleName, employee.lastName, employee.empId);
             });
         });
 
         PimPage.assertPersonalDetailsVisible();
     });
+
 });
+it.only("TC15: Should add Employee with Photo & Login Details", () => {
+    cy.get("@users").then((users: any) => {
+        cy.login(users.valid.username, users.valid.password);
+
+        cy.get("@employee").then((employee: any) => {
+            cy.addEmployeeWithPhotoAndLogin(employee);
+        });
+    });
+
+    PimPage.assertPersonalDetailsVisible();
+});
+
+

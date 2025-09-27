@@ -1,0 +1,13 @@
+name: Trigger e2e cypress - Jenkins Job
+
+on:
+  push:
+
+jobs:
+  trigger-jenkins:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Jenkins Job
+        run: |
+          curl -X POST https://natacha-unmethylated-dilan.ngrok-free.dev/build \
+            --user zaina:${{ secrets.JENKINS_API_TOKEN }}

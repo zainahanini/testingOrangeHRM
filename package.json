@@ -4,6 +4,7 @@
     "cypress": "^15.1.0"
   },
   "devDependencies": {
+    "cypress-file-upload": "^5.0.8",
     "typescript": "^5.9.2"
   }
 }

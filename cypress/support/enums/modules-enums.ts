@@ -10,7 +10,8 @@ export enum APP_MODULES {
     DIRECTORY = "Directory",
     MAINTENANCE = "Maintenance",
     BUZZ = "Buzz",
-    CLAIM = "Claim"
+    CLAIM = "Claim",
+    EDIT = "Edit User"
 }
 
 export enum MODULE_URL_FREG {

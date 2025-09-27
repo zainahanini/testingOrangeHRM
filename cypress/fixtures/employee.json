@@ -1,7 +1,15 @@
 {
-    "firstName": "Zaina",
+    "firstName": "test test",
     "middleName": "Hazim",
     "lastName": "Hanini",
-    "empId": "123456789"
+    "empId": "123456789",
+    "username": "zainahanini9",
+    "password": "Admin123@",
+    "confirmPassword": "Admin123@",
+    "role": "Admin",
+    "status": "Enabled",
+    "newRole": "ESS",
+    "newStatus": "Disabled" ,
+    "photo": "C:/Users/zaina/Desktop/orangeHRM/cypress/fixtures/photo.jpg"
   
 }

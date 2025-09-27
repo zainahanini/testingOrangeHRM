@@ -17,7 +17,7 @@ describe('Validate module URLs and headers for all pages)', () => {
     });
 
     it('TC0: Should open admin page and validate the URL and header', () => {
-        adminPage.openFromMenu(APP_MODULES.ADMIN);
+        adminPage.openFromMenu();
         adminPage.validateURL(MODULE_URL_FREG.ADMIN);
         adminPage.validateHeader();
     })
