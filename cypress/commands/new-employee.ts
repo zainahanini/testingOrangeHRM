@@ -79,7 +79,6 @@ Cypress.Commands.add(
     PimPage.clickSave();
     PimPage.assertPersonalDetailsVisible();
   }
+
+  
 );
-
-
-
