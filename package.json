@@ -1,10 +1,21 @@
 {
   "type": "module",
-  "dependencies": {
-    "cypress": "^15.1.0"
-  },
+ "scripts": {
+  "clean:allure": "npx rimraf allure-results allure-report",
+  "test:login": "npm run clean:allure && cypress run --spec \"cypress/e2e/login/login.cy.ts\"",
+  "report:generate": "allure generate allure-results --clean -o allure-report",
+  "report:login": "npm run test:login && npm run report:generate",
+  "test": "npm run clean:allure && npm run test:login && npm run report:generate",
+  "ci:clean": "npx rimraf allure-results allure-report",
+  "ci:test:all": "npm run ci:clean && cypress run",
+  "ci:test:login": "npm run ci:clean && cypress run --spec \"cypress/e2e/login/login.cy.ts\""
+},
   "devDependencies": {
+    "@mmisty/cypress-allure-adapter": "^3.3.0",
+    "allure-commandline": "^2.34.1",
+    "cypress": "^15.3.0",
     "cypress-file-upload": "^5.0.8",
+    "rimraf": "^6.0.1",
     "typescript": "^5.9.2"
   }
 }
