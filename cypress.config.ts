@@ -1,10 +1,18 @@
 import { defineConfig } from "cypress";
+import { configureAllureAdapterPlugins } from "@mmisty/cypress-allure-adapter/plugins";
 
 export default defineConfig({
   e2e: {
+    baseUrl: "https://opensource-demo.orangehrmlive.com",
+
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      configureAllureAdapterPlugins(on, config);
+      return config;
     },
-    baseUrl: "https://opensource-demo.orangehrmlive.com"
+  },
+
+  env: {
+    allure: true,
+    allureResults: "allure-results",
   },
 });
