@@ -16,7 +16,8 @@ const LOCATORS = {
   confirmPasswordInput: 'input.oxd-input.oxd-input--active[type="password"]',
   statusButton: 'button[type="submit"]',
   employeeListTable: 'div.oxd-table-card',
-  personalDetailsHeader: 'h6.oxd-text.oxd-text--h6.orangehrm-main-title'
+  personalDetailsHeader: 'h6.oxd-text.oxd-text--h6.orangehrm-main-title',
+  profilePhoto: 'div.oxd-avatar > img'
 };
 
 class PimPage {
@@ -75,18 +76,22 @@ class PimPage {
 
   clickSave() {
     cy.get(LOCATORS.saveButton).should('be.enabled').click();
-    cy.contains('Successfully Saved', { timeout: 10000 }).should('be.visible');
+    cy.contains('Successfully Saved').should('be.visible');
   }
-  // assertEmplyeeCreated(employee: any) {
-  //   cy.get(LOCATORS.employeeListTable).should('contain.text', employee.firstName)
-  //     .and('contain.text', employee.lastName);
-  // }
-
-
   assertPersonalDetailsVisible() {
-     cy.get(LOCATORS.employeeListTable, { timeout: 100000 }).contains('Personal Details').should('be.visible');
+    cy.contains(LOCATORS.personalDetailsHeader, 'Personal Details').should('be.visible');
+  }
+  assertEmployeeCreated(firstName: string, lastName: string, empId?: string) {
+    cy.get(LOCATORS.personalDetailsHeader).should('be.visible');
+    cy.get(LOCATORS.firstName).should('have.value', firstName);
+    cy.get(LOCATORS.lastName).should('have.value', lastName);
+  }
 
 
+  assertValidationMessages() {
+    cy.contains('Required').should('be.visible');
+    cy.contains('Upload a valid file').should('be.visible');
+    cy.contains('Should have at least 8 characters').should('be.visible');
   }
 }
 

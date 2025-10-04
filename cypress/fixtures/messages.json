@@ -1,4 +1,7 @@
 {
     "invalidCreds": "Invalid credentials",
-    "required": "Required"
+    "required": "Required",
+    "deleteSuccess": "Successfully Deleted",
+    "saveSuccess": "Successfully Saved",
+    "updateSuccess": "Successfully Updated"
 }

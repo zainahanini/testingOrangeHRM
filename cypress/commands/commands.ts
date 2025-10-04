@@ -66,4 +66,6 @@ Cypress.Commands.add('apiRequest', (method: string, url: string, body?: any) => 
             "x-api-key": "reqres-free-v1"   
         } 
     });
+
+    
 });

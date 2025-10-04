@@ -1,0 +1,15 @@
+{
+  "firstName": "wrong",
+  "middleName": "wrong",
+  "lastName": "Test",
+  "fullName": "Test",
+  "empId": "4444",
+  "username": "testuser",
+  "password": "1234567890a",
+  "confirmPassword": "1234567890a",
+  "role": "Admin",
+  "status": "Enabled",
+  "newRole": "ESS",
+  "newStatus": "Disabled",
+  "photo": "photo.jpg"
+}

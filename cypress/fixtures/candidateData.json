@@ -1,0 +1,10 @@
+{
+  "firstName": "Ahmad",
+  "middleName": "M.",
+  "lastName": "Baker",
+  "email": "ahmad.baker@example.com",
+  "contactNumber": "0591234567",
+  "keywords": "Software,Engineer",
+  "resumePath": "resume.pdf",
+  "vacancy": "Software Engineer"
+}
