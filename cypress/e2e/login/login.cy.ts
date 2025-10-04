@@ -1,3 +1,4 @@
+import "@mmisty/cypress-allure-adapter";
 import DashboardPage from "../../support/pages/dashboard-page.js";
 import LoginPage from "../../support/pages/login-page.js";
 
