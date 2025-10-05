@@ -1,23 +1,29 @@
 import { candidatesPage } from "../support/pages/candidates-page";
 
 declare global {
-    namespace Cypress {
-        interface Chainable {
-            navigateToCandidates(): Chainable<void>;
-            addCandidate(candidate: any): Chainable<void>;
-            searchCandidate(nameOrEmail: string): Chainable<void>;
-            shortlistCandidate(comment: string): Chainable<void>;
-            scheduleInterview(interview: any): Chainable<void>;
-            markInterviewPassed(): Chainable<void>;
-            verifyResumeAttached(): Chainable<void>;
-        }
+  namespace Cypress {
+    interface Chainable {
+      manageCandidate(candidate: any): Chainable<void>;
+      processInterview(candidate: any, interview: any): Chainable<void>;
     }
+  }
 }
 
-Cypress.Commands.add("navigateToCandidates", () => candidatesPage.navigateToCandidates());
-Cypress.Commands.add("addCandidate", (candidate) => candidatesPage.addCandidate(candidate));
-Cypress.Commands.add("searchCandidate", (nameOrEmail) => candidatesPage.searchCandidate(nameOrEmail));
-Cypress.Commands.add("shortlistCandidate", (comment) => candidatesPage.shortlistCandidate(comment));
-Cypress.Commands.add("scheduleInterview", (interview) => candidatesPage.scheduleInterview(interview));
-Cypress.Commands.add("markInterviewPassed", () => candidatesPage.markInterviewPassed());
-Cypress.Commands.add("verifyResumeAttached", () => candidatesPage.verifyResumeAttached());
+Cypress.Commands.add("manageCandidate", (candidate) => {
+  candidatesPage.visitCandidatesPage();
+  candidatesPage.clickAddButton();
+  candidatesPage.fillCandidateDetails(candidate);
+  candidatesPage.uploadResume(candidate.resumePath);
+  candidatesPage.saveCandidate();
+});
+
+Cypress.Commands.add("processInterview", (candidate, interview) => {
+  candidatesPage.openRecruitment();
+  candidatesPage.searchCandidate(candidate.firstName);
+  candidatesPage.verifyCandidateInList(candidate.firstName);
+  candidatesPage.openCandidate();
+  candidatesPage.shortlistCandidate("Strong candidate");
+  candidatesPage.scheduleInterview(interview);
+  candidatesPage.markInterviewPassed();
+  candidatesPage.verifyResumeAttachment();
+});

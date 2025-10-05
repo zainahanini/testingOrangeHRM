@@ -5,16 +5,21 @@ declare global {
     interface Chainable {
       assignJobDetails(details: any): Chainable<void>;
       verifyJobDetails(details: any): Chainable<void>;
+      openEmployeeProfile(employeeName: string): Chainable<void>;
     }
   }
 }
 
-Cypress.Commands.add("assignJobDetails", (details) => {
+Cypress.Commands.add("openEmployeeProfile", (employeeName: string) => {
+  jobDetailsPage.openEmployeeProfile(employeeName);
+});
+
+Cypress.Commands.add("assignJobDetails", (details: any) => {
   jobDetailsPage.navigateToJobTab();
   jobDetailsPage.fillJobDetails(details);
   jobDetailsPage.saveJobDetails();
 });
 
-Cypress.Commands.add("verifyJobDetails", (details) => {
+Cypress.Commands.add("verifyJobDetails", (details: any) => {
   jobDetailsPage.verifyJobDetails(details);
 });
