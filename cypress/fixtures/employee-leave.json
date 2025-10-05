@@ -1,10 +1,13 @@
 {
-  "firstName": "Test",
-  "middleName": "Hazim",
-  "lastName": "Hanini",
-  "fullName": "Test Hazim Hanini",
-  "empId": "123456",
-  "username": "testhazim3",
-  "password": "Admin123@",
-  "photo": "photo.jpg"
+  "name": "Ahmad Baker",
+  "username": "ahmad.baker",
+  "password": "Employee123!",
+  "leaveType": "CAN - Personal",
+  "leaveRequest": {
+    "fromDate": "2025-12-10",
+    "toDate": "2025-12-15",
+    "leavePeriod": "2025-01-01 to 2025-12-31",
+    "leaveBalance": "13",
+    "comment": "Family trip"
+  }
 }

@@ -1,99 +1,128 @@
+import { RECRUITMENT_BUTTONS } from "../enums/candidates-enums";
+
 const LOCATORS = {
+  DROPDOWN: ".oxd-select-text--after",
+  DROPDOWN_INPUT: ".oxd-select-text-input",
+  DROPDOWN_OPTION: ".oxd-select-dropdown",
+  UPLOAD_FILE: 'input[type="file"]',
+  UPLOAD_FILE_BUTTON: ".oxd-file-button",
   FIRST_NAME: 'input[name="firstName"]',
   MIDDLE_NAME: 'input[name="middleName"]',
   LAST_NAME: 'input[name="lastName"]',
-  EMAIL: 'input[name="email"]',
-  CONTACT_NUMBER: 'input[name="contactNumber"]',
-  KEYWORDS: 'input[name="keywords"]',
-  VACANCY_DROPDOWN: ".oxd-select-text--after",
-  VACANCY_OPTIONS: ".oxd-select-dropdown",
-  UPLOAD_FILE: 'input[type="file"]',
-  SUBMIT_BUTTON: 'button[type="submit"]',
-  BUTTON: "button",
   CANDIDATE_NAME_INPUT: 'input[placeholder="Type for hints..."]',
   CANDIDATE_NAME_DROPDOWN: ".oxd-autocomplete-dropdown",
-  LIST_ROW: '[role="row"]',
+  INTERVIEWER_NAME_INPUT: 'input[placeholder="Type for hints..."]',
+  INTERVIEWER_NAME_DROPDOWN: ".oxd-autocomplete-option",
   NOTE: 'textarea[placeholder="Type here"].oxd-textarea',
+  DOWNLOAD_BUTTON: ".oxd-icon.bi-download",
+  EMAIL: 'input[placeholder="Type here"].oxd-input--active',
+  CONTACT_NUMBER: 'input[placeholder="Type here"].oxd-input--active',
+  KEYWORDS: 'input[placeholder="Enter comma seperated words..."]',
+  SUBMIT_BUTTON: 'button[type="submit"]',
+  BUTTON_BUTTON: 'button[type="button"]',
   INTERVIEW_TITLE:
     'input.oxd-input.oxd-input--active:not([readonly]):not([placeholder="Search"])',
   DATE: 'input[placeholder="yyyy-dd-mm"]',
   TIME: 'input[placeholder="hh:mm"]',
-  INTERVIEWER_NAME_INPUT: 'input[placeholder="Type for hints..."]',
-  INTERVIEWER_NAME_DROPDOWN: ".oxd-autocomplete-option",
-  DOWNLOAD_BUTTON: ".oxd-icon.bi-download",
+  LIST_ROW: ".oxd-table-card",
+  EYE_BUTTON: ".oxd-icon.bi-eye-fill",
 };
 
 class CandidatesPage {
-  navigateToCandidates() {
-    cy.get("nav").contains("Recruitment").click();
-    cy.get("a").contains("Candidates").should("be.visible").click();
+  visitCandidatesPage() {
+    cy.get("a").contains("Recruitment").click();
+    cy.contains("Candidates").click();
   }
 
-  addCandidate(candidate: {
-    firstName: string;
-    middleName?: string;
-    lastName: string;
-    email: string;
-    contactNumber?: string;
-    keywords?: string;
-    resumePath: string;
-    vacancy: string;
-  }) {
-    cy.contains(LOCATORS.BUTTON, "Add", { timeout: 10000 }).eq(0).click();
-    cy.get(LOCATORS.FIRST_NAME).eq(0).type(candidate.firstName);
-    if (candidate.middleName) cy.get(LOCATORS.MIDDLE_NAME).eq(0).type(candidate.middleName);
-    cy.get(LOCATORS.LAST_NAME).eq(0).type(candidate.lastName);
-    cy.get(LOCATORS.EMAIL).eq(0).type(candidate.email);
-    if (candidate.contactNumber) cy.get(LOCATORS.CONTACT_NUMBER).eq(0).type(candidate.contactNumber);
-    if (candidate.keywords) cy.get(LOCATORS.KEYWORDS).eq(0).type(candidate.keywords);
-    cy.get(LOCATORS.VACANCY_DROPDOWN).eq(0).click();
-    cy.get(LOCATORS.VACANCY_OPTIONS).contains(candidate.vacancy).click();
-    cy.get(LOCATORS.UPLOAD_FILE).eq(0).attachFile(candidate.resumePath);
-    cy.get(LOCATORS.SUBMIT_BUTTON).eq(0).click();
+  clickAddButton() {
+    cy.get("button").contains(RECRUITMENT_BUTTONS.ADD).click();
   }
 
-  searchCandidate(nameOrEmail: string) {
-    cy.get(LOCATORS.CANDIDATE_NAME_INPUT).eq(0).clear().type(nameOrEmail, { force: true });
-    cy.get(LOCATORS.CANDIDATE_NAME_DROPDOWN)
-      .contains(nameOrEmail, { timeout: 10000 })
+  fillCandidateDetails(candidate: any) {
+    cy.get(LOCATORS.FIRST_NAME).type(candidate.firstName);
+    if (candidate.middleName) cy.get(LOCATORS.MIDDLE_NAME).type(candidate.middleName);
+    cy.get(LOCATORS.LAST_NAME).type(candidate.lastName);
+
+    cy.get(LOCATORS.EMAIL)
+      .should("have.length.at.least", 1)
       .eq(0)
-      .click({ force: true });
+      .type(candidate.email, { force: true });
+
+    cy.get(LOCATORS.CONTACT_NUMBER).last().type(candidate.contactNumber, { force: true });
+
+
+    if (candidate.keywords) cy.get(LOCATORS.KEYWORDS).type(candidate.keywords);
+
+    cy.get(LOCATORS.DROPDOWN).first().click();
+    cy.get(LOCATORS.DROPDOWN_OPTION).contains(candidate.vacancy).click();
   }
 
-  shortlistCandidate(comment: string) {
-    cy.get(LOCATORS.LIST_ROW).eq(0).within(() => {
-      cy.contains(LOCATORS.BUTTON, "Shortlist", { timeout: 10000 }).eq(0).click({ force: true });
-    });
-    cy.get(LOCATORS.NOTE).eq(0).type(comment);
-    cy.get(LOCATORS.SUBMIT_BUTTON).eq(0).click();
+
+  uploadResume(filePath: string) {
+    cy.get(LOCATORS.UPLOAD_FILE_BUTTON).click();
+    cy.get(LOCATORS.UPLOAD_FILE).selectFile(filePath, { force: true });
   }
 
-  scheduleInterview(interview: {
-    title: string;
-    date: string;
-    time: string;
-    interviewer: string;
-  }) {
-    cy.get(LOCATORS.LIST_ROW).eq(0).within(() => {
-      cy.contains(LOCATORS.BUTTON, "Schedule Interview", { timeout: 10000 }).eq(0).click({ force: true });
-    });
-    cy.get(LOCATORS.INTERVIEW_TITLE).eq(0).type(interview.title);
-    cy.get(LOCATORS.DATE).eq(0).type(interview.date);
-    cy.get(LOCATORS.TIME).eq(0).type(interview.time);
-    cy.get(LOCATORS.INTERVIEWER_NAME_INPUT).eq(0).type(interview.interviewer);
-    cy.get(LOCATORS.INTERVIEWER_NAME_DROPDOWN).contains(interview.interviewer).eq(0).click();
-    cy.get(LOCATORS.SUBMIT_BUTTON).eq(0).click();
+  saveCandidate() {
+    cy.get(LOCATORS.SUBMIT_BUTTON).contains(RECRUITMENT_BUTTONS.SAVE).click();
+    cy.contains("Successfully Saved").should("be.visible");
+  }
+
+  searchCandidate(name: string) {
+    cy.get(LOCATORS.CANDIDATE_NAME_INPUT).type(name);
+    cy.get(LOCATORS.CANDIDATE_NAME_DROPDOWN).contains(name).click({ force: true });
+  }
+
+  verifyCandidateInList(name: string) {
+    cy.get(LOCATORS.LIST_ROW).should("contain", name).and("be.visible");
+  }
+
+  openCandidate() {
+    cy.get(LOCATORS.LIST_ROW).first().find(LOCATORS.EYE_BUTTON).click();
+  }
+
+  shortlistCandidate(note: string) {
+    cy.get(LOCATORS.BUTTON_BUTTON)
+      .contains(RECRUITMENT_BUTTONS.SHORTLIST)
+      .click();
+    cy.get(LOCATORS.NOTE).type(note);
+    cy.get(LOCATORS.SUBMIT_BUTTON).click();
+    cy.contains("Successfully Updated").should("be.visible");
+  }
+
+  scheduleInterview(data: { title: string; date: string; time: string; interviewer: string }) {
+    cy.get(LOCATORS.BUTTON_BUTTON)
+      .contains(RECRUITMENT_BUTTONS.SCHEDULE_INTERVIEW)
+      .click();
+
+    cy.get(LOCATORS.INTERVIEW_TITLE).first().type(data.title);
+    cy.get(LOCATORS.DATE).clear().type(data.date);
+    cy.get(LOCATORS.TIME).clear().type(data.time);
+
+    cy.get(LOCATORS.INTERVIEWER_NAME_INPUT).type(data.interviewer);
+    cy.get(LOCATORS.INTERVIEWER_NAME_DROPDOWN).contains(data.interviewer).click();
+
+    cy.get(LOCATORS.SUBMIT_BUTTON).click();
+    cy.contains("Successfully Saved").should("be.visible");
   }
 
   markInterviewPassed() {
-    cy.get(LOCATORS.LIST_ROW).eq(0).within(() => {
-      cy.contains(LOCATORS.BUTTON, "Mark as Passed", { timeout: 10000 }).eq(0).click({ force: true });
-    });
+    cy.get(LOCATORS.BUTTON_BUTTON)
+      .contains(RECRUITMENT_BUTTONS.MARK_PASSED)
+      .click();
+    cy.contains("Successfully Updated").should("be.visible");
   }
 
-  verifyResumeAttached() {
-    cy.get(LOCATORS.LIST_ROW).eq(0).find(LOCATORS.DOWNLOAD_BUTTON).should("exist");
+  verifyResumeAttachment() {
+    cy.get(LOCATORS.LIST_ROW).first().find(LOCATORS.DOWNLOAD_BUTTON).should("be.visible");
   }
+
+  openRecruitment() {
+    cy.contains("a", "Recruitment").click();
+    cy.contains("Candidates").click();
+  }
+
 }
+
 
 export const candidatesPage = new CandidatesPage();

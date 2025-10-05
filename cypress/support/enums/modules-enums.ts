@@ -21,7 +21,7 @@ export enum MODULE_URL_FREG {
     LEAVE = "/leave",
     TIME = "/time",
     RECRUITMENT = "/recruitment",
-    MY_INFO = "/my-info", 
+    MY_INFO = "/my-info",
     PERFORMANCE = "/performance",
     DIRECTORY = "/directory",
     MAINTENANCE = "/maintenance",

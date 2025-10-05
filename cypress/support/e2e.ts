@@ -18,10 +18,11 @@
 import '../commands/commands'
 import 'cypress-file-upload';
 import "../commands/new-employee.ts";
-import "../commands/existing-emolyee.ts";
+import "../commands/leave-commands";
 import "../commands/buzz-commands.ts";
 import "../commands/job-commands.ts";
 import "../commands/candidates-commands.ts";
 import "@mmisty/cypress-allure-adapter/support";
+
 
 

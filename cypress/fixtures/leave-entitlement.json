@@ -1,4 +1,6 @@
 {
+  "employeeName": "Ahmad Baker",
+  "leaveType": "CAN - Personal",
   "fromDate": "2025-10-01",
   "toDate": "2025-12-31",
   "days": "15"
